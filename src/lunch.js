@@ -7,7 +7,7 @@ class Lunch extends Component {
       <div className="Lunch">
         <p>for lunch i ate {this.props.lunch} </p>
         <p>after i at the {this.props.lunch}, i was thirsty and I drank a {this.props.drink}</p>
-        <p>and me and courtney {this.props.chitchat}.</p>
+        <p>and me and courtney said {this.props.chitchat}.</p>
       </div>
     );
   }
