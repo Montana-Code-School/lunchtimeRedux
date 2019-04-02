@@ -3,8 +3,49 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { decorate, observable, configure, action, computed } from "mobx";
+import { observer } from "mobx-react";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+configure({ enforceActions: true })
+
+class Store {
+    cuisineList = [
+      {
+          foodOrigin: "greek",
+          tasty: true,  
+          lunch:"pasta",
+          drink:"green tea",
+          chitchat:"talkie talkie"
+      },
+      {
+          foodOrigin: "british",
+          tasty: false,  
+          lunch:"boiled racoon",
+          drink:"scotch",
+          chitchat:"'ello bloody hell ye bloody git"  
+      },
+      {
+          foodOrigin: "mexican",
+          tasty: true, 
+          lunch:"enchiladas",
+          drink:"chili margarita",
+          chitchat:"hola que pasa amigo"   
+      }
+    ] 
+    pushCuisine(e) {
+        this.cuisineList.push(e)
+    }
+  }
+  decorate(Store, {
+    cuisineList: observable,
+    pushCuisine: action,
+  })
+  
+  const appStore = new Store()
+  
+
+ReactDOM.render(<App store={appStore} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
