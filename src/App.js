@@ -7,34 +7,24 @@ import Lunch from './lunch';
 configure({ enforceActions: true })
 
 class App extends Component {
-  state = {
-    f: "",
-    t: null,
-    l: "",
-    d: "",
-    c: ""
-  }
+  
   addCuisine = () => {
-    const { f, t, l, d, c } = this.state;
-    const newCuisine = {
-      foodOrigin: f,
-      tasty: t, 
-      lunch: l,
-      drink: d,
-      chitchat: c   
-    }
-    this.props.store.pushCuisine(newCuisine);
+    this.props.store.pushCuisine(this.props.store.newCuisine);
   }
   render() {
+    console.log(this.props.store)
     return (
       <div className="App">
-        {this.props.store.cuisineList.map((x) => <Lunch {...x} />)}
+        {this.props.store.cuisineList.map((x) => <Lunch {...x} key={x.lunch}/>)}
         <button onClick={() => this.addCuisine()}>add a cuisine</button>
-        <input type="text" label="f" onChange={(e) => this.setState({f: e.target.value})}/>
-        <input type="text" label="t" onChange={(e) => this.setState({t: e.target.value})}/>
-        <input type="text" label="l" onChange={(e) => this.setState({l: e.target.value})}/>
-        <input type="text" label="d" onChange={(e) => this.setState({d: e.target.value})}/>
-        <input type="text" label="c" onChange={(e) => this.setState({c: e.target.value})}/>
+        <input type="text" placeholder="f" onChange={(e) => this.props.store.modifyNewCuisine({foodOrigin: e.target.value})}/>
+        <input type="checkbox" placeholder="t" onChange={(e) => this.props.store.modifyNewCuisine({tasty: e.target.checked})}/>
+        <input type="text" placeholder="l" onChange={(e) => this.props.store.modifyNewCuisine({lunch: e.target.value})}/>
+        <input type="text" placeholder="d" onChange={(e) => this.props.store.modifyNewCuisine({drink: e.target.value})}/>
+        <input type="text" placeholder="c" onChange={(e) => this.props.store.modifyNewCuisine({chitchat: e.target.value})}/>
+        <p>{this.props.store.newCuisine.foodOrigin}</p>
+        <p>{this.props.store.newCuisine.lunch}</p>
+        <p>{this.props.store.newCuisine.tasty? "tasty!" : "yuck!" }</p>
       </div>
     );
   }

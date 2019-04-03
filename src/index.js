@@ -33,16 +33,25 @@ class Store {
           chitchat:"hola que pasa amigo"   
       }
     ] 
-    
-    updateNewCuisine(f, t, l, d, c){
-      let newCuisine = {
-        foodOrigin: f,
-        tasty: t, 
-        lunch: l,
-        drink: d,
-        chitchat: c 
+    newCuisine = {
+      foodOrigin: "",
+      tasty: null, 
+      lunch: "",
+      drink: "",
+      chitchat: "", 
+    }
+
+    modifyNewCuisine(obj){
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          this.newCuisine[key] = obj[key];
+        }
       }
-      this.pushCuisine(newCuisine);
+    }
+    
+    updateNewCuisine(){
+      console.log("update new cuisine: ", this.newCuisine);
+      this.pushCuisine(this.newCuisine);
     }
 
     pushCuisine(e) {
@@ -52,7 +61,9 @@ class Store {
   decorate(Store, {
     cuisineList: observable,
     pushCuisine: action,
-    updateNewCuisine: action
+    updateNewCuisine: action,
+    newCuisine: observable,
+    modifyNewCuisine: action,
   })
   
   const appStore = new Store()
