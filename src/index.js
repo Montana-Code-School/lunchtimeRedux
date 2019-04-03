@@ -33,13 +33,26 @@ class Store {
           chitchat:"hola que pasa amigo"   
       }
     ] 
+    
+    updateNewCuisine(f, t, l, d, c){
+      let newCuisine = {
+        foodOrigin: f,
+        tasty: t, 
+        lunch: l,
+        drink: d,
+        chitchat: c 
+      }
+      this.pushCuisine(newCuisine);
+    }
+
     pushCuisine(e) {
-        this.cuisineList.push(e)
+      this.cuisineList.push(e)
     }
   }
   decorate(Store, {
     cuisineList: observable,
     pushCuisine: action,
+    updateNewCuisine: action
   })
   
   const appStore = new Store()
